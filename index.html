@@ -2,31 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>To Mia 💜</title>
+  <title>Happy Anniversary, Mia 💜</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Georgia', serif;
       background: radial-gradient(circle at center, #6a0dad, #b980f0);
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    h1 {
-      position: absolute;
-      top: 40px;
-      font-size: 1.6em;
-      color: white;
+      font-family: 'Georgia', serif;
+      color: #fff;
       text-align: center;
-      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
     }
+
     .stars {
       position: absolute;
       width: 100%;
@@ -34,6 +27,7 @@
       z-index: 0;
       overflow: hidden;
     }
+
     .star {
       position: absolute;
       width: 4px;
@@ -47,70 +41,63 @@
       animation: twinkle 2.5s infinite ease-in-out, moveStar linear infinite;
       filter: drop-shadow(0 0 2px white);
     }
+
     @keyframes twinkle {
       0%, 100% { opacity: 0.3; }
       50% { opacity: 1; }
     }
+
     @keyframes moveStar {
       0% { transform: translateX(0); }
       100% { transform: translateX(100vw); }
     }
-    .envelope {
-      width: 300px;
-      height: 200px;
-      position: relative;
-      background: #f3d9ff;
-      border: 2px solid #b66ee7;
-      border-radius: 8px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
       z-index: 2;
     }
-    .flap {
-      position: absolute;
-      width: 100%;
-      height: 50%;
-      top: 0;
-      left: 0;
-      background: #d69af5;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      transform-origin: top;
-      transition: transform 0.6s ease-in-out;
-      z-index: 3;
+
+    #envelope {
+      background-color: #f4e1ff;
+      color: #5a005a;
+      border: 2px dashed #aa69d1;
+      padding: 20px 30px;
+      width: 320px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, background-color 0.3s;
+      z-index: 2;
     }
-    .paper {
-      position: absolute;
-      width: 280px;
-      height: 160px;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%) scaleY(0);
-      background: white;
-      border: 2px solid #d9b3ff;
-      border-radius: 6px;
+
+    #envelope:hover {
+      background-color: #e6ccff;
+      transform: scale(1.05);
+    }
+
+    #letter {
+      margin-top: 30px;
       padding: 20px;
-      color: #4a006a;
-      font-size: 1em;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.25);
-      z-index: 1;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
       opacity: 0;
-      transition: transform 0.6s ease, opacity 0.5s ease;
+      transform: scaleY(0);
       transform-origin: top;
+      transition: transform 0.8s ease, opacity 0.8s ease;
+      z-index: 2;
     }
-    .message {
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-    .envelope.open .flap {
-      transform: rotateX(180deg);
-    }
-    .envelope.open .paper {
+
+    #letter.show {
       opacity: 1;
-      transform: translateX(-50%) scaleY(1);
+      transform: scaleY(1);
     }
-    .envelope.open .message {
-      opacity: 1;
-      transition-delay: 0.6s;
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -118,23 +105,25 @@
 
   <div class="stars" id="stars"></div>
 
-  <h1>💌 To Mia, from Rehan</h1>
+  <h1>💌 Happy 1 Year Anniversary, Mia</h1>
 
-  <div class="envelope" id="envelope" title="Click to open">
-    <div class="flap"></div>
-    <div class="paper">
-      <div class="message">
-        Mia,<br><br>
-        Today is our one full year of love baby, laughter, and soft little moments that I never want to forget. You've made my world richer, brighter, and so much more magical just by being you.<br><br>
-        — Rehan 💜
-      </div>
-    </div>
+  <div id="envelope">Click to open your letter</div>
+
+  <div id="letter">
+    <p>
+      Mia,<br><br>
+      Today is our one full year of love baby, laughter, and soft little moments that I never want to forget. You've made my world richer, brighter, and so much more magical just by being you.<br><br>
+      — Rehan 💜
+    </p>
   </div>
 
   <script>
-    const envelope = document.getElementById("envelope");
-    envelope.addEventListener("click", () => {
-      envelope.classList.add("open");
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
+
+    envelope.addEventListener('click', () => {
+      envelope.style.display = 'none';
+      letter.classList.add('show');
     });
 
     // Generate stars
@@ -154,6 +143,5 @@
       starsContainer.appendChild(star);
     }
   </script>
-
 </body>
 </html>
