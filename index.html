@@ -4,21 +4,56 @@
   <meta charset="UTF-8">
   <title>To Mia 💜</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom right, #6a0dad, #b980f0);
+      background: radial-gradient(circle at center, #6a0dad, #b980f0);
       font-family: 'Georgia', serif;
+      color: white;
       display: flex;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      align-items: center;
+      height: 100vh;
       overflow: hidden;
+      position: relative;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
     }
 
     .container {
       text-align: center;
-      color: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      margin-bottom: 30px;
     }
 
     .envelope {
@@ -30,8 +65,8 @@
       border-radius: 8px;
       margin: 0 auto;
       cursor: pointer;
-      transition: transform 0.3s;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
     }
 
     .flap {
@@ -43,71 +78,85 @@
       background: #d69af5;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       transform-origin: top;
-      transition: transform 0.8s ease;
+      transition: transform 0.6s ease-in-out;
+      z-index: 3;
+    }
+
+    .paper {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 160px;
+      background: white;
+      border-top: 3px solid #cda5f7;
+      opacity: 0;
+      transform: translateY(100%) scaleY(0.2);
+      transform-origin: top;
+      transition: transform 1s ease, opacity 0.5s ease;
       z-index: 2;
+      padding: 20px;
+      color: #4a006a;
+      font-size: 1em;
+      overflow: hidden;
     }
 
-    .letter-content {
-      display: none;
-      margin-top: 30px;
-      max-width: 600px;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 25px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      font-size: 1.1em;
-      animation: fadeIn 1s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .message {
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .envelope.open .flap {
       transform: rotateX(180deg);
     }
 
-    h1 {
-      margin-bottom: 20px;
+    .envelope.open .paper {
+      opacity: 1;
+      transform: translateY(-40%) scaleY(1);
     }
 
-    p {
-      line-height: 1.6;
+    .envelope.open.show-message .message {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
+  <div class="stars" id="stars"></div>
+
   <div class="container">
     <h1>💌 To Mia, from Rehan</h1>
     <div class="envelope" id="envelope">
       <div class="flap"></div>
-      <p style="margin-top: 150px; color: #6a0dad; font-weight: bold;">Click the envelope</p>
-    </div>
-
-    <div class="letter-content" id="letter">
-      <p>
-        Mia,<br><br>
-        Today marks one full year of love, laughter, and soft little moments that I never want to forget. You've made my world richer, brighter, and so much more magical just by being you.<br><br>
-        I love your art, your energy, and how safe I feel when we're together. Thank you for every smile, every silly cat noise, and every time you let me see the world through your eyes. You're my favorite human — and my whole heart.<br><br>
-        Forever yours,<br>
-        Rehan 💜
-      </p>
+      <div class="paper" id="paper">
+        <div class="message" id="message">
+          Mia,<br><br>
+          Today is our one full year of love baby, laughter, and soft little moments that I never want to forget. You've made my world richer, brighter, and so much more magical just by being you.<br><br>
+          — Rehan 💜
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
+    // Envelope open logic
     const envelope = document.getElementById("envelope");
-    const letter = document.getElementById("letter");
-
     envelope.addEventListener("click", () => {
       envelope.classList.add("open");
       setTimeout(() => {
-        envelope.style.display = "none";
-        letter.style.display = "block";
-      }, 900);
+        envelope.classList.add("show-message");
+      }, 1000);
     });
+
+    // Starfield generator
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 2 + 's';
+      starsContainer.appendChild(star);
+    }
   </script>
 </body>
 </html>
