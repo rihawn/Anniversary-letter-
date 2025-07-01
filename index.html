@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Anniversary, Mia 💜</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a0dad, #b980f0);
+      font-family: 'Georgia', serif;
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    #envelope {
+      background-color: #f4e1ff;
+      color: #5a005a;
+      border: 2px dashed #aa69d1;
+      padding: 20px 30px;
+      width: 320px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, background-color 0.3s;
+    }
+
+    #envelope:hover {
+      background-color: #e6ccff;
+      transform: scale(1.05);
+    }
+
+    #letter {
+      margin-top: 30px;
+      padding: 20px;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: none;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💌 Happy 1 Year Anniversary, Mia</h1>
+
+  <div id="envelope">Click to open your letter</div>
+
+  <div id="letter">
+    <p>
+      Mia,<br><br>
+      One year ago, my world became brighter the moment you stepped into it. Every day since has been filled with your laughter, your warmth, and your beautiful heart. I love how you draw on your hands, how your art reflects your soul, and how you make even the quietest moments feel magical.<br><br>
+      I’m so lucky to love and be loved by you. Here’s to every little moment, every soft touch, every shared anime night, and every second we’ve spent being completely, unapologetically us. Thank you for being my sunshine, my star, and my everything.<br><br>
+      I love you endlessly.<br>
+      — Rehan 💜
+    </p>
+  </div>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
+
+    envelope.addEventListener('click', () => {
+      envelope.style.display = 'none';
+      letter.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
