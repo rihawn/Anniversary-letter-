@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>To Mia 💜</title>
   <style>
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       padding: 0;
@@ -21,7 +20,6 @@
       overflow: hidden;
       position: relative;
     }
-
     .stars {
       position: absolute;
       width: 100%;
@@ -30,7 +28,6 @@
       z-index: 0;
       overflow: hidden;
     }
-
     .star {
       position: absolute;
       width: 2px;
@@ -38,24 +35,24 @@
       background: white;
       border-radius: 50%;
       opacity: 0.7;
-      animation: twinkle 2s infinite ease-in-out;
+      animation: twinkle 2s infinite ease-in-out, moveStar linear infinite;
     }
-
     @keyframes twinkle {
       0%, 100% { opacity: 0.3; }
       50% { opacity: 1; }
     }
-
+    @keyframes moveStar {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100vw); }
+    }
     .container {
       text-align: center;
       position: relative;
       z-index: 2;
     }
-
     h1 {
       margin-bottom: 30px;
     }
-
     .envelope {
       position: relative;
       width: 300px;
@@ -66,9 +63,8 @@
       margin: 0 auto;
       cursor: pointer;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
+      overflow: visible; /* allow paper outside */
     }
-
     .flap {
       position: absolute;
       top: 0;
@@ -81,40 +77,43 @@
       transition: transform 0.6s ease-in-out;
       z-index: 3;
     }
-
     .paper {
       position: absolute;
       bottom: 0;
-      left: 0;
-      width: 100%;
+      left: 50%;
+      width: 280px;
       height: 160px;
       background: white;
-      border-top: 3px solid #cda5f7;
-      opacity: 0;
-      transform: translateY(100%) scaleY(0.2);
-      transform-origin: top;
-      transition: transform 1s ease, opacity 0.5s ease;
-      z-index: 2;
+      border: 3px solid #cda5f7;
+      border-radius: 6px;
       padding: 20px;
       color: #4a006a;
       font-size: 1em;
       overflow: hidden;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+      opacity: 0;
+      transform-origin: top center;
+      transform: translateX(-50%) translateY(0) scaleY(0);
+      transition:
+        transform 0.7s ease,
+        opacity 0.5s ease;
+      z-index: 2;
+      transform-style: preserve-3d;
     }
-
     .message {
       opacity: 0;
       transition: opacity 1s ease;
     }
-
     .envelope.open .flap {
       transform: rotateX(180deg);
     }
-
     .envelope.open .paper {
       opacity: 1;
-      transform: translateY(-40%) scaleY(1);
+      transform: translateX(-50%) translateY(-230px) scaleY(1);
+      transition:
+        transform 1s ease,
+        opacity 0.7s ease;
     }
-
     .envelope.open.show-message .message {
       opacity: 1;
     }
@@ -125,7 +124,7 @@
 
   <div class="container">
     <h1>💌 To Mia, from Rehan</h1>
-    <div class="envelope" id="envelope">
+    <div class="envelope" id="envelope" title="Click to open">
       <div class="flap"></div>
       <div class="paper" id="paper">
         <div class="message" id="message">
@@ -144,17 +143,29 @@
       envelope.classList.add("open");
       setTimeout(() => {
         envelope.classList.add("show-message");
-      }, 1000);
+      }, 1300);
     });
 
-    // Starfield generator
+    // Starfield generator with moving stars
     const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 100; i++) {
+    const starCount = 100;
+
+    for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
       star.style.top = Math.random() * 100 + '%';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.animationDelay = Math.random() * 2 + 's';
+
+      // Start position between -100vw and 100vw so stars come from left or right
+      const startX = Math.random() * 200 - 100;
+      star.style.left = startX + 'vw';
+
+      // Randomize animation duration & direction
+      const duration = 20 + Math.random() * 40; // 20s to 60s
+      const direction = Math.random() > 0.5 ? 'normal' : 'reverse';
+
+      star.style.animationDuration = duration + 's';
+      star.style.animationDirection = direction;
+
       starsContainer.appendChild(star);
     }
   </script>
