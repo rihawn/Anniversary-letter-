@@ -21,7 +21,6 @@
       overflow: hidden;
     }
 
-    /* Twinkling Stars */
     .stars {
       position: absolute;
       width: 100%;
@@ -32,10 +31,13 @@
 
     .star {
       position: absolute;
-      width: 6px;
-      height: 6px;
+      width: 10px;
+      height: 10px;
       background: white;
-      border-radius: 50%;
+      clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+        50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+      );
       opacity: 0.8;
       animation: twinkle 2.5s infinite ease-in-out, moveStar linear infinite;
       filter: drop-shadow(0 0 4px white);
@@ -51,7 +53,6 @@
       100% { transform: translateX(100vw); }
     }
 
-    /* Shooting Stars */
     .shooting-star {
       position: absolute;
       width: 80px;
@@ -133,7 +134,6 @@
       letter.classList.add('show');
     }, 800);
 
-    // Star field
     const starsContainer = document.getElementById('stars');
     const starCount = 100;
 
@@ -150,7 +150,6 @@
       starsContainer.appendChild(star);
     }
 
-    // Shooting stars
     function createShootingStar() {
       const shootingStar = document.createElement('div');
       shootingStar.classList.add('shooting-star');
@@ -163,7 +162,6 @@
       }, 1500);
     }
 
-    // Launch shooting stars every few seconds
     setInterval(createShootingStar, 6000);
   </script>
 </body>
