@@ -2,52 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Anniversary, Mia 💜</title>
+  <title>To Mia 💜</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #6a0dad, #b980f0);
+      background: linear-gradient(to bottom right, #6a0dad, #b980f0);
       font-family: 'Georgia', serif;
-      color: #fff;
-      text-align: center;
-      min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
     }
 
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
+    .container {
+      text-align: center;
+      color: white;
     }
 
-    #envelope {
-      background-color: #f4e1ff;
-      color: #5a005a;
-      border: 2px dashed #aa69d1;
-      padding: 20px 30px;
-      width: 320px;
-      border-radius: 12px;
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: #f3d9ff;
+      border: 2px solid #b66ee7;
+      border-radius: 8px;
+      margin: 0 auto;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, background-color 0.3s;
+      transition: transform 0.3s;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
 
-    #envelope:hover {
-      background-color: #e6ccff;
-      transform: scale(1.05);
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: #d69af5;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top;
+      transition: transform 0.8s ease;
+      z-index: 2;
     }
 
-    #letter {
+    .letter-content {
+      display: none;
       margin-top: 30px;
-      padding: 20px;
       max-width: 600px;
       background: rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
+      padding: 25px;
+      border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      display: none;
+      color: white;
+      font-size: 1.1em;
       animation: fadeIn 1s ease forwards;
     }
 
@@ -56,35 +65,48 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
     p {
-      font-size: 1.2em;
       line-height: 1.6;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>💌 To Mia, from Rehan</h1>
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <p style="margin-top: 150px; color: #6a0dad; font-weight: bold;">Click the envelope</p>
+    </div>
 
-  <h1>💌 Happy 1 Year Anniversary, Mia</h1>
-
-  <div id="envelope">Click to open your letter</div>
-
-  <div id="letter">
-    <p>
-      Mia,<br><br>
-      One year ago, my world became brighter the moment you stepped into it. Every day since has been filled with your laughter, your warmth, and your beautiful heart. I love how you draw on your hands, how your art reflects your soul, and how you make even the quietest moments feel magical.<br><br>
-      I’m so lucky to love and be loved by you. Here’s to every little moment, every soft touch, every shared anime night, and every second we’ve spent being completely, unapologetically us. Thank you for being my sunshine, my star, and my everything.<br><br>
-      I love you endlessly.<br>
-      — Rehan 💜
-    </p>
+    <div class="letter-content" id="letter">
+      <p>
+        Mia,<br><br>
+        Today marks one full year of love, laughter, and soft little moments that I never want to forget. You've made my world richer, brighter, and so much more magical just by being you.<br><br>
+        I love your art, your energy, and how safe I feel when we're together. Thank you for every smile, every silly cat noise, and every time you let me see the world through your eyes. You're my favorite human — and my whole heart.<br><br>
+        Forever yours,<br>
+        Rehan 💜
+      </p>
+    </div>
   </div>
 
   <script>
-    const envelope = document.getElementById('envelope');
-    const letter = document.getElementById('letter');
+    const envelope = document.getElementById("envelope");
+    const letter = document.getElementById("letter");
 
-    envelope.addEventListener('click', () => {
-      envelope.style.display = 'none';
-      letter.style.display = 'block';
+    envelope.addEventListener("click", () => {
+      envelope.classList.add("open");
+      setTimeout(() => {
+        envelope.style.display = "none";
+        letter.style.display = "block";
+      }, 900);
     });
   </script>
 </body>
