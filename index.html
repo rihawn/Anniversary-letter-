@@ -15,16 +15,16 @@
       color: white;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: start;
       height: 100vh;
       overflow: hidden;
       position: relative;
+      padding-top: 60px;
     }
     .stars {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: transparent;
       z-index: 0;
       overflow: hidden;
     }
@@ -63,7 +63,7 @@
       height: 200px;
       margin: 0 auto;
       cursor: pointer;
-      overflow: visible; /* allow paper outside */
+      overflow: visible;
       z-index: 3;
     }
     .envelope-body {
@@ -113,19 +113,21 @@
       opacity: 0;
       transform-origin: top center;
       transform: translateX(-50%) translateY(0) scaleY(0);
-      transition:
-        transform 0.7s ease,
-        opacity 0.5s ease;
+      transition: transform 1s ease, opacity 0.5s ease;
       z-index: 6;
       transform-style: preserve-3d;
     }
+
     .envelope.open .paper {
       opacity: 1;
       transform: translateX(-50%) translateY(-230px) scaleY(1);
-      transition:
-        transform 1s ease,
-        opacity 0.7s ease;
     }
+
+    .envelope.open .paper.slide-down {
+      transform: translateX(-50%) translateY(-180px) scaleY(1);
+      transition: transform 0.6s ease;
+    }
+
     .message {
       opacity: 0;
       transition: opacity 1s ease;
@@ -157,6 +159,7 @@
   <script>
     const envelope = document.getElementById("envelope");
     const envelopeBody = envelope.querySelector('.envelope-body');
+    const paper = document.getElementById("paper");
 
     envelope.addEventListener("click", () => {
       envelope.classList.add("open");
@@ -167,13 +170,18 @@
         envelopeBody.style.pointerEvents = 'none';
       }, 1100);
 
-      // Show message after paper fully out
+      // Slide paper slightly downward for final resting position
+      setTimeout(() => {
+        paper.classList.add("slide-down");
+      }, 1600);
+
+      // Show message
       setTimeout(() => {
         envelope.classList.add("show-message");
-      }, 1300);
+      }, 1900);
     });
 
-    // Starfield generator with star shapes and movement
+    // Starfield generator
     const starsContainer = document.getElementById('stars');
     const starCount = 100;
 
@@ -182,12 +190,10 @@
       star.classList.add('star');
       star.style.top = Math.random() * 100 + '%';
 
-      // Start position between -100vw and 100vw so stars come from left or right
       const startX = Math.random() * 200 - 100;
       star.style.left = startX + 'vw';
 
-      // Randomize animation duration & direction
-      const duration = 20 + Math.random() * 40; // 20s to 60s
+      const duration = 20 + Math.random() * 40;
       const direction = Math.random() > 0.5 ? 'normal' : 'reverse';
 
       star.style.animationDuration = duration + 's';
