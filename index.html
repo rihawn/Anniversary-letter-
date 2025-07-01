@@ -8,7 +8,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: radial-gradient(ellipse at bottom, #0d0c25, #09071a);
+      background: radial-gradient(ellipse at bottom, #1a0133, #0b001d);
       font-family: 'Dancing Script', cursive;
       color: #fff;
       text-align: center;
@@ -21,6 +21,7 @@
       overflow: hidden;
     }
 
+    /* Twinkling Stars */
     .stars {
       position: absolute;
       width: 100%;
@@ -31,20 +32,17 @@
 
     .star {
       position: absolute;
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       background: white;
-      clip-path: polygon(
-        50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 
-        50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
-      );
+      border-radius: 50%;
       opacity: 0.8;
       animation: twinkle 2.5s infinite ease-in-out, moveStar linear infinite;
-      filter: drop-shadow(0 0 3px white);
+      filter: drop-shadow(0 0 4px white);
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.4; }
+      0%, 100% { opacity: 0.3; }
       50% { opacity: 1; }
     }
 
@@ -53,8 +51,36 @@
       100% { transform: translateX(100vw); }
     }
 
+    /* Shooting Stars */
+    .shooting-star {
+      position: absolute;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, white, transparent);
+      opacity: 0.7;
+      transform: rotate(45deg);
+      animation: shoot 1.5s linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes shoot {
+      0% {
+        top: -10%;
+        left: -20%;
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        top: 100%;
+        left: 120%;
+        opacity: 0;
+      }
+    }
+
     h1 {
-      font-size: 2.4em;
+      font-size: 2.5em;
       margin-bottom: 30px;
       z-index: 2;
       color: #ffffff;
@@ -65,7 +91,7 @@
       margin-top: 20px;
       padding: 25px;
       max-width: 650px;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       opacity: 0;
@@ -82,7 +108,7 @@
 
     p {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.4em;
+      font-size: 1.5em;
       line-height: 1.8;
       color: #ffeaff;
     }
@@ -91,7 +117,6 @@
 <body>
 
   <div class="stars" id="stars"></div>
-
   <h1>💌 Happy 1 Year Anniversary, Mia</h1>
 
   <div id="letter">
@@ -108,8 +133,9 @@
       letter.classList.add('show');
     }, 800);
 
+    // Star field
     const starsContainer = document.getElementById('stars');
-    const starCount = 80;
+    const starCount = 100;
 
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -123,6 +149,22 @@
       star.style.animationDirection = direction;
       starsContainer.appendChild(star);
     }
+
+    // Shooting stars
+    function createShootingStar() {
+      const shootingStar = document.createElement('div');
+      shootingStar.classList.add('shooting-star');
+      shootingStar.style.top = Math.random() * 50 + '%';
+      shootingStar.style.left = Math.random() * 30 + '%';
+      document.body.appendChild(shootingStar);
+
+      setTimeout(() => {
+        shootingStar.remove();
+      }, 1500);
+    }
+
+    // Launch shooting stars every few seconds
+    setInterval(createShootingStar, 6000);
   </script>
 </body>
 </html>
